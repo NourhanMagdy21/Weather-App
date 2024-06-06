@@ -6,6 +6,6 @@ class NoWeatherInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(body: Center(child: Text('There is no weather, start searching now ')));
   }
 }
