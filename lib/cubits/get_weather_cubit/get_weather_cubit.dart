@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,15 +9,16 @@ import '../../views/search_view.dart';
 import 'get_weather_states.dart';
 
 class GetWeatherCubit extends Cubit<WeatherStates> {
-  GetWeatherCubit(): super(InitialState());
+  GetWeatherCubit(): super(WeatherInitialState());
+  late WeatherModel weatherModel;
 
   getWeather({required String cityName}) async {
     try {
-      WeatherModel weatherModel =
+       weatherModel =
           await WeatherServices(Dio()).getCurrentWeather(cityName: cityName);
-      emit(WeatherLoadedStates());
-    } on Exception catch (e) {
-      emit(WeatherFailureStates());
+      emit(WeatherLoadedStates(weatherModel));
+    }  catch (e) {
+      emit(WeatherFailureStates(e.toString()));
     }
   }
 }
